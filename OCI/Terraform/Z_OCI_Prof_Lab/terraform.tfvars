@@ -1,0 +1,7 @@
+tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaanjxhtf43kfqmqsqk6u7lrlkywyyxiv7di2b2a34ez4x3n4yeluoa"
+compartment_ocid="ocid1.compartment.oc1..aaaaaaaaozh6gasuvzyzvpta4cz6ryxjmd3e6qinko6l7pogh46bm25xyhxa"
+user_ocid="ocid1.user.oc1..aaaaaaaavfuwbkkefdmr6z4kr3xl6xdkpweimpga66whg3pwbji33lcmdfcq"
+fingerprint="4c:f2:74:75:9f:fc:a8:46:0d:88:c0:99:02:8e:0a:d9"
+private_key_path="/home/ayens/.oci/clarence-subia.pem"
+region="us-phoenix-1"
+ssh_public_key_file="/home/ayens/.ssh/id_rsa.pub"

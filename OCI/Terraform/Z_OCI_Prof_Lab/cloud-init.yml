@@ -1,0 +1,11 @@
+#cloud-config
+packages:
+  - httpd
+runcmd:
+  - sudo apachectl start
+  - sudo systemctl enable httpd
+  - sudo dnf install firewalld -y
+  - sudo firewall-offline-cmd --add-port=80/tcp
+  - sudo firewall-offline-cmd --add-service=http
+  - sudo firewall-offline-cmd --reload
+  - echo 'This instance was provisioned by Terraform.' >> /var/www/html/index.html

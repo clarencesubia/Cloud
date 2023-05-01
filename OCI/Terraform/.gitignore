@@ -1,0 +1,7 @@
+/*/.terraform/
+/*/.terraform*
+/*/*.tfstate*
+aws/*
+awscliv2.*
+/*/*.tfvars
+/*/terraform.tfvars
