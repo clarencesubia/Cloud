@@ -1,6 +1,7 @@
 /*/.terraform/
 /*/.terraform*
 /*/*.tfstate*
+/*/terraform*
 aws/*
 awscliv2.*
 /*/*.tfvars
