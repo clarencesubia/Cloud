@@ -84,32 +84,32 @@ class ZpaApplicationManager(ZpaAuthenticator):
                 for serverGroup in serverGroups:
                     svrgroupid = {"id": self.server_group_ids[serverGroup]}
                     servergroups.append(svrgroupid)
-                t_ports = row["TCP Ports"].split(",")
-                u_ports = row["UDP Ports"].split(",")
 
                 tcp_ports = []
-                for tcp_port in t_ports:
-                    if "-" in port:
-                        port = port.split("-")
-                        tcp_port = {"from": port[0], "to": port[1]}
-                        if tcp_port not in tcp_ports:
-                            tcp_ports.append(tcp_port)
-                    else:
-                        tcp_port = {"from": port, "to": port}
-                        if tcp_port not in tcp_ports:
-                            tcp_ports.append(tcp_port)
+                if t_ports := row["TCP Ports"].split(","):
+                    for port in t_ports:
+                        if "-" in port:
+                            port_range = port.split("-")
+                            tcp_port = {"from": port_range[0], "to": port_range[1]}
+                            if tcp_port not in tcp_ports:
+                                tcp_ports.append(tcp_port)
+                        else:
+                            tcp_port = {"from": port, "to": port}
+                            if tcp_port not in tcp_ports:
+                                tcp_ports.append(tcp_port)
 
                 udp_ports = []
-                for udp_port in u_ports:
-                    if "-" in port:
-                        port = port.split("-")
-                        udp_port = {"from": port[0], "to": port[1]}
-                        if udp_port not in udp_ports:
-                            udp_ports.append(udp_port)
-                    else:
-                        udp_port = {"from": port, "to": port}
-                        if udp_port not in udp_ports:
-                            udp_ports.append(udp_port)
+                if u_ports := row["UDP Ports"].split(","):
+                    for port in u_ports:
+                        if "-" in port:
+                            port_range = port.split("-")
+                            udp_port = {"from": port_range[0], "to": port_range[1]}
+                            if udp_port not in udp_ports:
+                                udp_ports.append(udp_port)
+                        else:
+                            udp_port = {"from": port, "to": port}
+                            if udp_port not in udp_ports:
+                                udp_ports.append(udp_port)
 
                 payload = json.dumps(
                     {
