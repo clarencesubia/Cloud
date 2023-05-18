@@ -58,7 +58,7 @@ The script performs the following actions:
 - Displays the status of each application segment creation.
 
 ## CSV File Format
-The CSV file should have the following format:
+The CSV file should have the following format. If you are using .xlsx, follow `payload.xlsx` format.
 ```csv
 Name,Domains,segmentGroup,serverGroup,TCP Ports,UDP Ports
 Segment1,domain1.com,domain_group1,server_group1,80-81,3389
@@ -75,7 +75,6 @@ Segment2,domain2.com,domain_group2,server_group2,443,53
 This script is licensed under the MIT License.
 
 Please note that this script is provided as-is and without warranty. Use it at your own risk.
-
 
 
 ## Author:
