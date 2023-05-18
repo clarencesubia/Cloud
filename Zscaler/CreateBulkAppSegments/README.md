@@ -41,6 +41,7 @@ The script performs the following actions:
 - Publishes the application segments specified in the CSV file.
 - Displays the status of each application segment creation.
 
+
 ## CSV File Format
 The CSV file should have the following format:
 ```csv
@@ -54,6 +55,11 @@ Segment2,domain2.com,domain_group2,server_group2,443,53
 - segmentGroup: The name of the segment group to which the segment belongs.
 - serverGroup: Comma-separated list of server groups associated with the segment.
 - TCP Ports: Comma-separated list of TCP/UDP ports accessible by the segment. Ranges can be specified using a dash, e.g., 80-81.
+
+
+## API Reference
+[ZPA_API Reference Guide](https://help.zscaler.com/zpa/about-zpa-api)
+
 
 ## License
 This script is licensed under the MIT License.
