@@ -16,7 +16,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 ```bash
-python3 publish_segments.py --file <CSV_FILE> --tenant <TENANT_NAME> --customer-id <CUSTOMER_ID>
+python3 CreateAppSegment.py --file <CSV_FILE> --tenant <TENANT_NAME> --customer-id <CUSTOMER_ID>
 ```
 
 Replace <CSV_FILE> with the path or name of the CSV file containing the segment details. The CSV file should have the following columns: Name, Domains, segmentGroup, serverGroup, TCP Ports.
@@ -28,7 +28,7 @@ Replace <CUSTOMER_ID> with your ZPA customer ID.
 For example:
 
 ```bash
-python3 publish_segments.py --file segments.csv --tenant mytenant --customer-id 12345
+python3 CreateAppSegment.py --file segments.csv --tenant mytenant --customer-id 12345
 ```
 
 Description
