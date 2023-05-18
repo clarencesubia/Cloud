@@ -24,10 +24,10 @@ deactivate --> run after using the script
 
 ## Setting up OS variables
 ```bash
-vim .zpaenv
+vim .zpaenv --> Edit env file
 export ZPA_CL_ID="ZPA Client ID"
 export ZPA_SC="ZPA Secret Key"
-ESC + :wq
+ESC + :wq --> Save and Exit
 
 source .zpaenv
 ```
