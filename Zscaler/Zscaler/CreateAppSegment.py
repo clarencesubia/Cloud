@@ -1,8 +1,10 @@
 import argparse
 import requests
+import pandas as pd
 
 import os
 import csv
+import sys
 import json
 
 class Colors():
@@ -85,7 +87,8 @@ class ZpaApplicationManager(ZpaAuthenticator):
                     servergroups.append(svrgroupid)
 
                 tcp_ports = []
-                if t_ports := row["TCP Ports"].split(","):
+                if t_ports := row["TCP Ports"]:
+                    t_ports = t_ports.split(",")
                     for port in t_ports:
                         if "-" in port:
                             port_range = port.split("-")
@@ -98,7 +101,8 @@ class ZpaApplicationManager(ZpaAuthenticator):
                                 tcp_ports.append(tcp_port)
 
                 udp_ports = []
-                if u_ports := row["UDP Ports"].split(","):
+                if u_ports := row["UDP Ports"]:
+                    u_ports = u_ports.split(",")
                     for port in u_ports:
                         if "-" in port:
                             port_range = port.split("-")
@@ -125,8 +129,8 @@ class ZpaApplicationManager(ZpaAuthenticator):
                         "tcpPortRange": tcp_ports,
                         "udpPortRange": udp_ports,
                         "domainNames": domains,
-                        "applicationGroupId": self.segment_group_ids[segmentGroup],
-                        "serverGroups": servergroups
+                        "applicationGroupId": segmentGroup,
+                        "serverGroups": serverGroups
                     }
                 )
 
@@ -136,6 +140,46 @@ class ZpaApplicationManager(ZpaAuthenticator):
                 else:
                     print(f"{Colors.YELLOW}{Colors.BOLD}[!] Something went wrong:{Colors.END} {json.loads(response.text)['reason']}")
 
+
+
+def normalize_payload(target_xlsx):
+    print(f"{Colors.GREEN}{Colors.BOLD}[!] Converting XLSX file to CSV! {Colors.END}")
+    try:
+        xls = pd.ExcelFile(target_xlsx)
+        app_segments = pd.read_excel(xls, "Application Segments")
+    except FileNotFoundError as err:
+        print(f"{Colors.YELLOW}{Colors.BOLD}{err}{Colors.END}")
+        sys.exit()
+    app_segments.to_csv(f"application_segments_raw.csv", index=None, header=True)
+    
+    with open(f"application_segments_raw.csv", "r") as csv_file:
+        csvReader = csv.DictReader(csv_file)
+        with open(f"application_segments.csv", "w") as csv_file:
+            csvWriter = csv.writer(csv_file)
+            header = ["Name", "Domains", "segmentGroup", "serverGroup", "TCP Ports", "UDP Ports"]
+            csvWriter.writerow(header)
+            for row in csvReader:
+                    name = row["Name"].strip()
+                    segmentGroup = row["segmentGroup"].strip()
+                    domains = (
+                        row["Domains"]
+                        .strip()
+                        .replace("\n", ",")
+                        .replace(" ,", ",")
+                        .replace("\t,", ",")
+                    )
+                    serverGroup = row["serverGroup"]
+                    if tcpPorts := row["TCP Ports"]:
+                        tcpPorts = tcpPorts.strip().replace("\n", ",").strip(".0")
+                    if udpPorts := row["UDP Ports"]:
+                        udpPorts = udpPorts.strip().replace("\n", ",").strip(".0")
+
+                    output = name, domains, segmentGroup, serverGroup, tcpPorts, udpPorts
+                    csvWriter.writerow(output)
+
+    print(f"{Colors.GREEN}{Colors.BOLD}[!] Deleting file application_segments_raw.csv!{Colors.END}")
+    if os.path.exists("application_segments_raw.csv"):
+        os.remove("application_segments_raw.csv")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Publish Application Segments")
@@ -147,10 +191,19 @@ if __name__ == "__main__":
     file = args.file
     tenant = args.tenant
     customer_id = args.customer_id
+    
+    if ".xlsx" in file:
+        normalize_payload(file)
+        payload_file = "application_segments.csv"
+    elif ".csv" in file:
+        payload_file = file
+    else:
+        print(f"{Colors.YELLOW}{Colors.BOLD}Wrong file extension. Use .csv or .xlsx only!{Colors.END}")
+        sys.exit(1)
 
     ZpaAuthenticator(tenant=tenant, customer_id=customer_id).authenticate()
-    app_manager = ZpaApplicationManager(tenant=tenant, customer_id=customer_id, payload_file=file)
-
+    app_manager = ZpaApplicationManager(tenant=tenant, customer_id=customer_id, payload_file=payload_file)
+    app_manager.add_app_segments()
     app_manager.get_group_bindings(group_type="segment")
     app_manager.get_group_bindings(group_type="server")
     app_manager.add_app_segments()
