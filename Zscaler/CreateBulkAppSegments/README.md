@@ -1,6 +1,6 @@
 ## Zscaler Private Access Application Segment Creation Tool
 
-This script allows you to publish application segments in ZPA (Zscaler Private Access) using a CSV file containing the segment details.
+This script allows you to publish application segments in ZPA (Zscaler Private Access) using a CSV or Excel file containing the segment details.
 
 ## Prerequisites
 Before running the script, ensure you have the following:
