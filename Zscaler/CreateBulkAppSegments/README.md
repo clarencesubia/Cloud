@@ -58,7 +58,7 @@ Segment2,domain2.com,domain_group2,server_group2,443,53
 
 
 ## API Reference
-[ZPA_API Reference Guide](https://help.zscaler.com/zpa/about-zpa-api)
+[ZPA API Reference Guide](https://help.zscaler.com/zpa/about-zpa-api)
 
 
 ## License
