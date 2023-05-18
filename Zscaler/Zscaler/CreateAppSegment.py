@@ -45,7 +45,6 @@ class ZpaAuthenticator:
 
 
 class ZpaApplicationManager(ZpaAuthenticator):
-
     def __init__(self, tenant, customer_id, payload_file):
         super().__init__(tenant, customer_id)
         self.payload_file = payload_file
@@ -66,7 +65,7 @@ class ZpaApplicationManager(ZpaAuthenticator):
             groupID = item["id"]
 
             if group_type == "segment":
-                self.segmentGroupIDs[groupName] = groupID
+                self.segment_group_ids[groupName] = groupID
             elif group_type == "server":
                 self.server_group_ids[groupName] = groupID
 
@@ -149,8 +148,8 @@ if __name__ == "__main__":
     tenant = args.tenant
     customer_id = args.customer_id
 
-    authenticator = ZpaAuthenticator(tenant=tenant, customer_id=customer_id).authenticate()
-    app_manager = ZpaApplicationManager(tenanat=tenant, customer_id=customer_id, payload_file=file)
+    ZpaAuthenticator(tenant=tenant, customer_id=customer_id).authenticate()
+    app_manager = ZpaApplicationManager(tenant=tenant, customer_id=customer_id, payload_file=file)
 
     app_manager.get_group_bindings(group_type="segment")
     app_manager.get_group_bindings(group_type="server")
