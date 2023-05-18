@@ -12,7 +12,7 @@ Before running the script, ensure you have the following:
 - Segment Groups and Server Groups to be used must be pre-existing
 
 ## Python Virtual Environment
-[venv](https://docs.python.org/3/library/venv.html)
+[Install venv](https://docs.python.org/3/library/venv.html)
 
 Go inside the directory Zscaler/
 ```bash
