@@ -2,6 +2,10 @@
 
 This script allows you to publish application segments in ZPA (Zscaler Private Access) using a CSV file containing the segment details.
 
+## Author:
+- [clarencesubia](https://github.com/clarencesubia/)
+
+
 ## Prerequisites
 Before running the script, ensure you have the following:
 
