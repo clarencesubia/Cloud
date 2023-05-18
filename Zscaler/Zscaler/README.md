@@ -11,21 +11,35 @@ Before running the script, ensure you have the following:
 - ZPA client ID and client secret environment variables (ZPA_CL_ID and ZPA_SC)
 - Segment Groups and Server Groups to be used must be pre-existing
 
+## Python Virtual Environment
+[venv](https://docs.python.org/3/library/venv.html)
+
+Go inside the directory Zscaler/
 ```bash
+python3 -m venv ./
+source bin/activate
 pip3 install -r requirements.txt
+deactivate --> run after using the script
 ```
 
+## Setting up OS variables
+```bash
+vim .zpaenv
+export ZPA_CL_ID="ZPA Client ID"
+export ZPA_SC="ZPA Secret Key"
+ESC + :wq
+
+source .zpaenv
+```
 
 ## Usage
 ```bash
 python3 CreateAppSegment.py --file <CSV_FILE> --tenant <TENANT_NAME> --customer-id <CUSTOMER_ID>
 ```
 
-Replace <CSV_FILE> with the path or name of the CSV file containing the segment details. The CSV file should have the following columns: Name, Domains, segmentGroup, serverGroup, TCP Ports.
-
-Replace <TENANT_NAME> with the name of your ZPA tenant.
-
-Replace <CUSTOMER_ID> with your ZPA customer ID.
+- Replace <CSV_FILE> with the path or name of the CSV file containing the segment details. The CSV file should have the following columns: Name, Domains, segmentGroup, serverGroup, TCP Ports.
+- Replace <TENANT_NAME> with the name of your ZPA tenant.
+- Replace <CUSTOMER_ID> with your ZPA customer ID.
 
 For example:
 
