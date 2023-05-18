@@ -9,6 +9,7 @@ Before running the script, ensure you have the following:
 - Python 3.x installed on your system
 - Required Python libraries: argparse, requests
 - ZPA client ID and client secret environment variables (ZPA_CL_ID and ZPA_SC)
+- Segment Groups and Server Groups to be used must be pre-existing
 
 ```bash
 pip3 install -r requirements.txt
