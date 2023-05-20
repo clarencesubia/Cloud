@@ -7,7 +7,7 @@ variable "compartment_ocid" {
   description = "OCI Compartment to deploy to"
   type        = string
   validation {
-    condition = can(regex("xyhxa$", var.compartment_ocid))
+    condition     = can(regex("xyhxa$", var.compartment_ocid))
     error_message = "You are in the wrong comparment."
   }
 }

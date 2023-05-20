@@ -21,7 +21,7 @@ resource "oci_load_balancer_backend_set" "my_backend_set" {
     url_path          = "/"
     retries           = 3
     timeout_in_millis = 3000
-    return_code = 200
+    return_code       = 200
   }
 }
 

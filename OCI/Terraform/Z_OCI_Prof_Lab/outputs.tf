@@ -18,3 +18,7 @@ output "my_instance_public" {
   value = oci_core_instance.vm_instances[*]["public_ip"]
 }
 
+output "my_private_sec_lists" {
+  value = oci_core_security_list.private
+}
+

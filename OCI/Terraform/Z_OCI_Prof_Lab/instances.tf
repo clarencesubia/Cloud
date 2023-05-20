@@ -25,7 +25,7 @@ data "template_file" "user_data" {
 }
 
 resource "oci_core_instance" "vm_instances" {
-  count = 2
+  count               = 2
   availability_domain = local.my_ads[0]["name"]
   compartment_id      = var.compartment_ocid
   shape               = local.myshape
@@ -38,7 +38,49 @@ resource "oci_core_instance" "vm_instances" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.web_subnet.id
     assign_public_ip = true
-    nsg_ids = [oci_core_network_security_group.tf_network_security_group.id]
+    nsg_ids          = [oci_core_network_security_group.tf_network_security_group.id]
+  }
+
+  source_details {
+    source_id   = local.myimage
+    source_type = "image"
+  }
+}
+
+resource "oci_core_instance" "db_instances" {
+  availability_domain = local.my_ads[0]["name"]
+  compartment_id      = var.compartment_ocid
+  shape               = local.myshape
+  display_name        = "DB-Instance-1"
+  metadata = {
+    ssh_authorized_keys = "${file(var.ssh_public_key_file)}"
+    user_data           = "${base64encode(data.template_file.user_data.rendered)}"
+  }
+
+  create_vnic_details {
+    subnet_id        = oci_core_subnet.db_subnet.id
+    assign_public_ip = true
+  }
+
+  source_details {
+    source_id   = local.myimage
+    source_type = "image"
+  }
+}
+
+resource "oci_core_instance" "app_instances" {
+  availability_domain = local.my_ads[1]["name"]
+  compartment_id      = var.compartment_ocid
+  shape               = local.myshape
+  display_name        = "App-Instance-1"
+  metadata = {
+    ssh_authorized_keys = "${file(var.ssh_public_key_file)}"
+    user_data           = "${base64encode(data.template_file.user_data.rendered)}"
+  }
+
+  create_vnic_details {
+    subnet_id        = oci_core_subnet.apps_subnet.id
+    assign_public_ip = false
   }
 
   source_details {

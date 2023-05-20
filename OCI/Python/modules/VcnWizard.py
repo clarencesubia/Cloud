@@ -21,6 +21,7 @@ class Vcn:
         )
         vcn_response = self.vcn_client.create_vcn(create_vcn_details=vcn_details)
         self.vcn_data["vcn_id"] = vcn_response.data.id
+        
         return vcn_response
         
 
