@@ -36,4 +36,4 @@ response = requests.post(url, headers=headers, data=payload)
 #print(response.text)
 cookie = (response.headers['Set-Cookie'])
 session_id = cookie[:cookie.index(';')]
-#print(session_id)
+print(session_id)

@@ -25,13 +25,18 @@ class ZpaAuthenticator:
             "Content-Type": "application/x-www-form-urlencoded"
         }
 
-        self.client_id = os.environ.get("ZPA_CL_ID")
-        self.client_secret = os.environ.get("ZPA_SC")
+        self.client_secret = ")y+b8&JcyIMO8b(&nD4[N:0&9QwCcpS>" # os.environ.get("ZPA_CL_ID")
+        self.client_id = "288257933735624704" # os.environ.get("ZPA_SC")
         self.payload = f"client_id={self.client_id}&client_secret={self.client_secret}"
         
         self.access_token = None
         self.access_header = None
         self.session = None
+        
+        
+    def __str__(self):
+        return f"{Colors.GREEN}[!] Working with Tenant: {self.tenant} and Customer ID: {self.customer_id}"
+        
         
     @property
     def auth_url(self):
@@ -44,6 +49,7 @@ class ZpaAuthenticator:
         self.access_token = response["access_token"]
         self.access_header = {"Content-type": "application/json", "Authorization": f"Bearer {self.access_token}"}
         self.session.headers.update(self.access_header)
+        
 
 
 class ZpaApplicationManager(ZpaAuthenticator):
