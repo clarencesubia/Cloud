@@ -61,9 +61,9 @@ if __name__ == "__main__":
 
     subparsers = parser.add_subparsers(help='Define run-mode as show, plan, apply', dest='command')
 
-    # apply = subparsers.add_parser("apply", help="Apply changes to create application segments.")
-    # apply.add_argument("--file", required=False, help="CSV or Excel File Path or Name")
-    # apply.add_argument("--show-only", help="Plan mode")
+    apply = subparsers.add_parser("apply", help="Apply changes to create application segments.")
+    apply.add_argument("--file", required=False, help="CSV or Excel File Path or Name")
+    apply.add_argument("--show-only", help="Plan mode")
 
     show = subparsers.add_parser("show", help="Show existing application segments.")
 
